@@ -2,9 +2,14 @@
   <div class="home">
     <h1>{{ message }}</h1>
     <hr>
-    <button v-on:click="indexProducts">click me</button>
+    <button v-on:click="indexProducts">toggle products</button>
     <div v-bind:key= "product.id" v-for="product in products">
-      <p v-if="toggleProducts"> {{product.name}} - {{ product.description }} </p>
+      <div v-if="toggleProducts">
+      <p> {{product.name}} - {{ product.description }} 
+      </p>
+     <button v-on:click ="showProduct(product) ">click for info</button>
+      <hr>
+      </div>
     </div>
     <hr>
     <input v-model="productName" placeholder="enter name"/>
@@ -28,6 +33,7 @@ export default {
       productDescription: "",
       productPrice: "",
       productImageUrl: "#",
+      currentProduct: "",
     };
   },
   created: function () {},
@@ -55,8 +61,9 @@ export default {
         this.products.image_url = "";
       });
     },
-    testVariables: function () {
-      console.log(this.productName);
+    showProduct: function (theProduct) {
+      this.product = theProduct;
+      console.log(theProduct);
     },
   },
 };
